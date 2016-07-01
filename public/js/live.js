@@ -1,15 +1,21 @@
 $(function () {
+  // Start by calling the initializeMap function, and wrap everything else in that
   var map = initializeMap();
 
-  var containerToInfo={hotelOptionsContainer:["hotels", "hotelListId"],restaurantOptionsContainer:["restaurants","restaurantListId"],activitiesOptionsContainer:["activities","activitiesListId"]};
-  var days=1;
+  // Object containing category and id for each container, ie hotels, restaurants & activities
+  var containerToInfo = {
+    hotelOptionsContainer:['hotels', 'hotelListId'],
+    restaurantOptionsContainer:['restaurants', 'restaurantListId'],
+    activitiesOptionsContainer:['activities', 'activitiesListId']
+  };
+  // Tracker of number of days, default 1
+  var days = 1;
+  // Tracker of accumulated id's
   var itemId = 0;
-  //var currentDay = 1;
   var dayArr = [{}, {}];
   // [{hotels: [hotel1, hotel2], restaurants: []...}, {hotels...}]
 
-//Helper function adding element to parent
-
+// Helper function adding element to parent
   function addElement(elementType,text,idOfParent,classes){
       var element = document.createElement(elementType);
       var textnode = document.createTextNode(text);
@@ -22,7 +28,7 @@ $(function () {
   }
 
   //Adding options - creates the dropdown menues
-  // loop through each of the categories and create an option element, then append it to the appropriate parent, ie hotels, restaurants etc. 
+  // loop through each of the categories and create an option element, then append it to the appropriate parent, ie hotels, restaurants etc.
   function addOptions (category, id) {
     for(var i = 0; i < category.length; i++) {
       addElement('OPTION',category[i].name,id,[]);
@@ -68,7 +74,7 @@ $(function () {
     //check that it's an add button
     if($(this).data("action")==="add"){
       //Get the data that we clicked on
-      optionsContainer=$(this).parent(); 
+      optionsContainer=$(this).parent();
       select=$(optionsContainer).children()[1];
       val=$(select).val(); // a string e.g. 'Andaz Wall Street'
       //Create the list item, including its children
@@ -96,7 +102,7 @@ $(function () {
       //Add to itinerary
       var currentDay=getCurrentDay();
       addToItinerary(info[0],element,currentDay);
-    } 
+    }
 
   });
 
@@ -106,7 +112,7 @@ $(function () {
 
   // Removes items from itinerary and from map
   $('.list-group').on('click', '.remove', function () {
-  // handle it here        
+  // handle it here
   	  var category=$(this).parent().data('category');
   	  var currentDay=getCurrentDay();
   	  removeFromItinerary(category,$(this).parent()[0],currentDay);
@@ -157,8 +163,8 @@ $(function () {
   	days++;
   	//var element=addElement('BUTTON',days.toString(),'day-buttons',['btn btn-circle day-btn current-day']);
   	if (!dayArr[days]) {
-  		dayArr[days] = {};	
-  	} 
+  		dayArr[days] = {};
+  	}
 	var element = document.createElement('BUTTON');
     var textnode = document.createTextNode(days.toString());
     element.appendChild(textnode);
@@ -181,7 +187,7 @@ $(function () {
  		target=$('.current-day').prev();
  	}
  	else{
- 		if($('.current-day').next().id !== 'day-add'){
+ 		if($('.current-day').next()[0].id !== 'day-add'){
  			console.log('there is no prev but there are next');
  			target=$('.current-day').next();
  		}
@@ -193,7 +199,7 @@ $(function () {
  	$('.day-btn:nth-last-child(2)').remove();
  	//switch the view to another day & display
 
- 	//set the array for that day to {}
+ 	//Remove that day from the dayArr
  	dayArr.splice(dayToDelete,1);
 
  	switchDay(target);
