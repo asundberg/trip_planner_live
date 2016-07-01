@@ -71,17 +71,13 @@
 </div>
 
 <script>
-
-  //Loading backend data
+  // Loading backend data
+  // Makes these variables global
   {% autoescape false %}
   var hotels = {{ hotels | json }};
   var restaurants = {{ restaurants | json }};
   var activities = {{ activities | json }};
   {% endautoescape %}
-
-
-
-
 </script>
 
 {% endblock %}

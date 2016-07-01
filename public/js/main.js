@@ -40,7 +40,7 @@ function initializeMap () {
     styles: styleArr
   });
   return currentMap;
-};
+}
 
 
 function drawMarker (type, coords, currentMap) {
