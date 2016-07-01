@@ -50,7 +50,7 @@
         </div>
         <div class="panel-body" id="itinerary">
           <div id="itineraryHotel">
-            <h4>My Hotel</h4>
+            <h4>My Hotels</h4>
             <ul class="list-group" id="hotelListId">
             </ul>
           </div>
@@ -71,7 +71,7 @@
 </div>
 
 <script>
-  
+
   //Loading backend data
   {% autoescape false %}
   var hotels = {{ hotels | json }};
@@ -80,7 +80,7 @@
   {% endautoescape %}
 
 
-  
+
 
 </script>
 

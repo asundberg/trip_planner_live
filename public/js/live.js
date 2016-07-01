@@ -10,30 +10,33 @@ $(function () {
   };
   // Tracker of number of days, default 1
   var days = 1;
-  // Tracker of accumulated id's
+  // Tracker of accumulated ids of items we add to itinerary
   var itemId = 0;
+  // Array of day objects - each object consisting of key-value pairs where key is the category and value is an array of all the items of that category
   var dayArr = [{}, {}];
   // [{hotels: [hotel1, hotel2], restaurants: []...}, {hotels...}]
 
-// Helper function adding element to parent
-  function addElement(elementType,text,idOfParent,classes){
+  // Helper function adding element to parent
+  function addElement (elementType, text, idOfParent, classes) {
       var element = document.createElement(elementType);
       var textnode = document.createTextNode(text);
       element.appendChild(textnode);
-      for(var i=0;i<classes.length;i++){
+      for(var i = 0; i < classes.length; i++) {
         $(element).addClass(classes[i]);
       }
       document.getElementById(idOfParent).appendChild(element);
       return element;
   }
 
-  //Adding options - creates the dropdown menues
-  // loop through each of the categories and create an option element, then append it to the appropriate parent, ie hotels, restaurants etc.
+  // Adding options - creates the dropdown menues to select from
+  // Loop through each of the categories and create an option element, then append it to the appropriate parent, ie hotels, restaurants etc, using the addElement function
   function addOptions (category, id) {
     for(var i = 0; i < category.length; i++) {
-      addElement('OPTION',category[i].name,id,[]);
+      addElement('OPTION', category[i].name, id, []);
     }
   }
+
+  // The below calls add all our options to each of the categories
   addOptions(hotels, 'hotel-choices');
   addOptions(restaurants, 'restaurant-choices');
   addOptions(activities, 'activity-choices');
@@ -46,12 +49,16 @@ $(function () {
     }
   }
 
+  // Helper function to add a new item to the itinerary
   function addToItinerary (category, item, dayIndex) {
   	item.id = itemId;
   	itemId++;
+    // check if the dayArr at the given index has a key for the given category
   	if (dayArr[dayIndex][category]) {
+      // if so, push the new item to that array
   		dayArr[dayIndex][category].push(item);
   	} else {
+      // if not, create a key value pair and put the item in the value array
   		dayArr[dayIndex][category] = [item];
   	}
   }

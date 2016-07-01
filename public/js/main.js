@@ -1,4 +1,4 @@
-var initializeMap = function (){
+function initializeMap () {
 
   var fullstackAcademy = new google.maps.LatLng(40.705086, -74.009151);
 
@@ -43,7 +43,7 @@ var initializeMap = function (){
 };
 
 
-var drawMarker = function (type, coords, currentMap) {
+function drawMarker (type, coords, currentMap) {
   var iconURLs = {
     hotels: '/images/lodging_0star.png',
     restaurants: '/images/restaurant.png',
